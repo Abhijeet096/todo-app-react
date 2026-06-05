@@ -1,28 +1,37 @@
-// import React from 'react'
 import { useState } from "react";
 
-
-
-
 const App = () => {
-  const [input, setinput] = useState("")
-  const [todos, settodos] = useState([])
+  const [input, setInput] = useState("");
+  const [todos, setTodos] = useState([]);
+
+  const addTodo = () => {
+    if (input.trim() === "") return;
+
+    setTodos([...todos, input]);
+    setInput("");
+  };
+
   return (
     <div className="parent">
-    
-        <input type="text" 
-          onChange={(event)=>{
-            setinput(event.target.value)
-          }}
-        />
-      <button 
-      onClick={()=>{
-        settodos([...todos , input])
-      }}
-      >Add</button>
-       <p>{input}</p>
-    </div>
-  )
-}
+      <input
+        type="text"
+        value={input}
+        onChange={(event) => {
+          setInput(event.target.value);
+        }}
+      />
 
-export default App
+      <button onClick={addTodo}>
+        Add
+      </button>
+
+      <div className="todo-list">
+        {todos.map((todo, index) => {
+          return <p key={index}>{todo}</p>;
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default App;
